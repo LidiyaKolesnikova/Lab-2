@@ -1,0 +1,44 @@
+from csv import reader  # подкючили библиотеку
+import random
+
+with open('books-en (1).csv') as csvfile:
+    table =list( reader(csvfile, delimiter=';')) #разделитель
+
+#1
+    count_30=0
+    for row in table:
+        if len(row[1])>30:
+            count_30+=1
+    print('количество записей, у которых в поле Название строка длиннее 30 символов:', count_30)
+
+#2
+    search = input('Search for: ')
+    for row in table[1:]:
+        if (float(row[-1].replace(',', '.')) >= 200) and (row[2].find(search) != -1):
+            print(row)
+
+
+#3
+    bibliography = []
+    for i in range(20):
+        rand = random.randint(1,9410)
+        row = table[rand]
+        bibliography.append(f"{row[2]} {row[1]}  {row[3]}")
+    with open('bibliography.txt', 'w') as f:
+        for i in range(len(bibliography)):
+            f.write(f"{i+1}. {bibliography[i]}\n")
+    print(" файл 'bibliography.txt'")
+
+
+
+
+#4
+    import xml.etree.ElementTree as ET
+
+    # Парсинг XML
+    tree = ET.parse('currency.xml')
+    root = tree.getroot()
+
+    # Создаем списки
+    num_codes = []
+    char_codes = []
